@@ -8,7 +8,9 @@ class AlbumDTO
 {
     private int $id;
 
-    private Artist $artist;
+    private int $artistId;
+
+    private string $artistName;
 
     private string $name;
 
@@ -31,24 +33,36 @@ class AlbumDTO
     }
 
     /**
-     * @return Artist
+     * @return int
      */
-    public function getArtist(): Artist
+    public function getArtistId(): int
     {
-        return $this->artist;
+        return $this->artistId;
     }
 
     /**
-     * @param Artist $artist
-     * @return AlbumDTO
+     * @param int $artistId
      */
-    public function setArtist(Artist $artist): AlbumDTO
+    public function setArtistId(int $artistId): void
     {
-        $this->artist = $artist;
-        return $this;
+        $this->artistId = $artistId;
     }
 
+    /**
+     * @return string
+     */
+    public function getArtistName(): string
+    {
+        return $this->artistName;
+    }
 
+    /**
+     * @param string $artistName
+     */
+    public function setArtistName(string $artistName): void
+    {
+        $this->artistName = $artistName;
+    }
 
     /**
      * @return string

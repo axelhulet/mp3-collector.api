@@ -27,6 +27,9 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     #[ORM\OneToMany(mappedBy: 'user',targetEntity: Song::class)]
     private $songs;
 
+    #[ORM\OneToMany(mappedBy: 'user',targetEntity: Playlist::class)]
+    private $playlists;
+
     #[ORM\Column(type: 'boolean')]
     private  $active;
 
@@ -134,5 +137,24 @@ class User implements UserInterface, PasswordAuthenticatedUserInterface
     {
         // If you store any temporary, sensitive data on the user, clear it here
         // $this->plainPassword = null;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlaylists()
+    {
+        return $this->playlists;
+    }
+
+    /**
+     * @param mixed $playlists
+     * @return User
+     */
+    public function setPlaylists($playlists)
+    {
+        $this->playlists = $playlists;
+
+        return $this;
     }
 }

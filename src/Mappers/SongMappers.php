@@ -7,7 +7,8 @@ use App\Entity\Song;
 
 class SongMappers
 {
-    public static function toSongDTO(Song $song) {
+    public static function toSongDTO(Song $song) : SongDTO
+    {
         $dto = new SongDTO();
         $dto->setId($song->getId());
         $dto->setArtistId($song->getArtist()->getID());
@@ -25,7 +26,8 @@ class SongMappers
         return $dto;
     }
 
-    public static function DTOToSong(SongDTO $songDTO) {
+    public static function DTOToSong(SongDTO $songDTO) : Song
+    {
         $song = new Song();
 //        $song->setArtist($songDTO->getArtist());
 //        $song->setAlbum($songDTO->getAlbum());

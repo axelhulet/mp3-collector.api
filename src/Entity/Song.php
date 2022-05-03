@@ -28,7 +28,7 @@ class Song
     #[ORM\Column(type: 'integer')]
     private $trackNumber;
 
-    #[ORM\Column(type: 'integer')]
+    #[ORM\Column(type: 'string')]
     private $length;
 
     #[ORM\ManyToOne(targetEntity: User::class,inversedBy: 'songs')]

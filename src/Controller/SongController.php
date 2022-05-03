@@ -8,6 +8,7 @@ use App\Entity\Artist;
 use App\Entity\FileMp3;
 use App\Entity\Genre;
 use App\Entity\Song;
+use App\Entity\User;
 use App\Mappers\SongMappers;
 use App\Repository\AlbumRepository;
 use App\Repository\ArtistRepository;
@@ -69,7 +70,7 @@ class SongController extends AbstractFOSRestController
             $em->flush();
         }
         /** @var User $user */
-        $user= $this->getUser();
+        $user = $this->getUser();
 
         $song = new Song();
         $song->setArtist($artist);
@@ -77,7 +78,7 @@ class SongController extends AbstractFOSRestController
         $song->setGenre($genre);
         $song->setTitle($ThisFileInfo['comments_html']['title'][0]);
         $song->setTrackNumber($ThisFileInfo['comments_html']['track_number'][0]);
-        $song->setLength(50);
+        $song->setLength($ThisFileInfo['playtime_string'][0]);
         $song->setFileLink($name);
         $song->setUser($user);
         $em->persist($song);
@@ -91,6 +92,24 @@ class SongController extends AbstractFOSRestController
     #[View]
     public function getAllSongs(SongRepository $repo) {
         $songs = $repo->findAll();
+        return array_map(function ($item){
+            return SongMappers::toSongDTO($item);
+        }, $songs);
+    }
+    #[Get('/api/songsByArtist/{id}')]
+    #[View]
+    public function getSongsByArtist($id, SongRepository $repo): array
+    {
+        $songs = $repo->findBy(['artist' => $id]);
+        return array_map(function ($item){
+            return SongMappers::toSongDTO($item);
+        }, $songs);
+    }
+    #[Get('/api/songsByAlbum/{id}')]
+    #[View]
+    public function getSongsByAlbum($id, SongRepository $repo): array
+    {
+        $songs = $repo->findBy(['album' => $id]);
         return array_map(function ($item){
             return SongMappers::toSongDTO($item);
         }, $songs);

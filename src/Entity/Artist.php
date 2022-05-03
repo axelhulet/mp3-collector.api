@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use App\Repository\ArtistRepository;
+use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ArtistRepository::class)]
@@ -21,6 +22,14 @@ class Artist
 
     #[ORM\OneToMany(mappedBy: 'artist',targetEntity: Album::class)]
     private $albums;
+
+    /**
+     * @param $albums
+     */
+    public function __construct()
+    {
+        $this->albums = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -72,12 +81,16 @@ class Artist
     }
 
     /**
-     * @param mixed $albums
+     * @param Album[] $albums
      * @return Artist
      */
     public function setAlbums($albums)
     {
         $this->albums = $albums;
         return $this;
+    }
+
+    public function addAlbum(Album $album){
+        $this->albums->add($album);
     }
 }

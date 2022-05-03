@@ -2,6 +2,8 @@
 
 namespace App\Dto;
 
+use App\Entity\Album;
+
 class ArtistDTO
 {
     private int $id;
@@ -43,4 +45,5 @@ class ArtistDTO
         $this->name = $name;
         return $this;
     }
+
 }
