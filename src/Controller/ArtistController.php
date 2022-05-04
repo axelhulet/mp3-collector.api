@@ -2,6 +2,7 @@
 
 namespace App\Controller;
 
+use App\Mappers\AlbumsArtistMappers;
 use App\Mappers\ArtistMappers;
 use App\Repository\ArtistRepository;
 use FOS\RestBundle\Controller\Annotations\Get;
@@ -19,5 +20,12 @@ class ArtistController extends AbstractController
         return array_map(function ($item){
             return ArtistMappers::toArtistDTO($item);
         }, $artists);
+    }
+
+    #[Get('/api/artist/{id}')]
+    #[View]
+    public function getArtistById($id, ArtistRepository $repo) {
+        $artist = $repo->find($id);
+            return AlbumsArtistMappers::toArtistAlbumsDTO($artist);
     }
 }

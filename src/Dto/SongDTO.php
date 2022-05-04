@@ -31,7 +31,7 @@ class SongDTO
 
     private int $trackNumber;
 
-    private int $length;
+    private string $length;
 
     private string $fileLink;
 
@@ -235,9 +235,9 @@ class SongDTO
     }
 
     /**
-     * @return int
+     * @return string
      */
-    public function getLength(): int
+    public function getLength(): string
     {
         return $this->length;
     }
@@ -246,7 +246,7 @@ class SongDTO
      * @param int $length
      * @return SongDTO
      */
-    public function setLength(int $length): SongDTO
+    public function setLength(string $length): SongDTO
     {
         $this->length = $length;
         return $this;
