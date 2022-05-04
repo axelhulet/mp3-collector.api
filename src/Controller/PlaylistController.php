@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Dto\PlaylistDTO;
+use App\Dto\SongsToPlaylistDTO;
 use App\Entity\User;
 use App\Mappers\PlaylistMappers;
 use App\Repository\PlaylistRepository;
@@ -34,6 +35,24 @@ class PlaylistController extends AbstractFOSRestController
         $em->flush();
         return $playlist->getId();
     }
+
+    #[Post('/api/updatePlaylist/{id}')]
+    #[View]
+    #[ParamConverter('songsToPlaylistDTO', converter: 'fos_rest.request_body')]
+    public function addSongsToPlaylist(
+        SongsToPlaylistDTO $songsToPlaylistDTO,
+        EntityManagerInterface $em,
+        PlaylistRepository $repo
+    ){
+//        $playlist = PlaylistMappers::DTOToPlaylist($playlistDTO);
+//        /** @var User $user */
+//        $user = $this->getUser();
+//        $playlist->setUser($user);
+//        $em->persist($playlist);
+//        $em->flush();
+        return $songsToPlaylistDTO;
+    }
+
     #[Get('/api/playlists')]
     #[View]
     public function getAllPlaylists(PlaylistRepository $repo): array

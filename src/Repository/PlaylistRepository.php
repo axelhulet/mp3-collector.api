@@ -47,6 +47,11 @@ class PlaylistRepository extends ServiceEntityRepository
         }
     }
 
+    public function addSongsToPlaylist( int $playlistId, int $songId ): void
+    {
+
+    }
+
     // /**
     //  * @return Playlist[] Returns an array of Playlist objects
     //  */

@@ -8,7 +8,7 @@ class PlaylistDTO
 
     private string $name;
 
-    private string $description;
+    private string $description = '';
 
     private int $userId;
 
