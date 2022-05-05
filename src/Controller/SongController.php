@@ -13,6 +13,7 @@ use App\Mappers\SongMappers;
 use App\Repository\AlbumRepository;
 use App\Repository\ArtistRepository;
 use App\Repository\GenreRepository;
+use App\Repository\PlaylistRepository;
 use App\Repository\SongRepository;
 use Doctrine\ORM\EntityManagerInterface;
 use FOS\RestBundle\Controller\AbstractFOSRestController;
@@ -113,5 +114,17 @@ class SongController extends AbstractFOSRestController
         return array_map(function ($item){
             return SongMappers::toSongDTO($item);
         }, $songs);
+    }
+    #[Get('/api/songsByPlaylist/{id}')]
+    #[View]
+    public function getSongsByPlaylist($id, SongRepository $repo, PlaylistRepository $repo2): array
+    {
+        $playlist = $repo2->find($id);
+        $songs = $playlist->getSongs();
+        $songsArray = $songs->getValues();
+
+        return array_map(function ($item){
+            return SongMappers::toSongDTO($item);
+        }, $songsArray);
     }
 }

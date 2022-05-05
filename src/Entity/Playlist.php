@@ -88,6 +88,12 @@ class Playlist
         return $this;
     }
 
+    public function addSongs(Song $song)
+    {
+        $this->songs[] = $song;
+        return $this;
+    }
+
     /**
      * @return mixed
      */
@@ -95,6 +101,7 @@ class Playlist
     {
         return $this->user;
     }
+
 
     /**
      * @param mixed $user

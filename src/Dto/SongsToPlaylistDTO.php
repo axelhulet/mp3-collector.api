@@ -53,12 +53,14 @@ class SongsToPlaylistDTO
     }
 
     /**
-     * @return array
+     * @return ArrayCollection
      */
-    public function getSongs(): array
+    public function getSongs(): ArrayCollection
     {
         return $this->songs;
     }
+
+
 
     /**
      * @param array $songs

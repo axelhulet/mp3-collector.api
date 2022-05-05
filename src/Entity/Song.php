@@ -13,6 +13,17 @@ class Song
     #[ORM\Column(type: 'integer')]
     private $id;
 
+    /**
+     * @param mixed $id
+     * @return Song
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
     #[ORM\Column(type: 'string', nullable: false)]
     private $title;
 
@@ -37,6 +48,9 @@ class Song
 
     #[ORM\Column(type: 'string',unique: true,nullable: false)]
     private $fileLink;
+
+    #[ORM\ManyToMany(targetEntity: Playlist::class)]
+    private $playlists;
 
     public function getId(): ?int
     {
@@ -184,6 +198,31 @@ class Song
     public function setFileLink($fileLink)
     {
         $this->fileLink = $fileLink;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getPlaylists()
+    {
+        return $this->playlists;
+    }
+
+    /**
+     * @param mixed $playlists
+     * @return Song
+     */
+    public function setPlaylists($playlists)
+    {
+        $this->playlists = $playlists;
+
+        return $this;
+    }
+
+    public function addPlaylist(Playlist $playlist)
+    {
+        $this->playlists = $playlist;
         return $this;
     }
 }

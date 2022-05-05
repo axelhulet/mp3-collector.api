@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\Playlist;
 use App\Entity\Song;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\ORM\OptimisticLockException;
@@ -47,6 +48,15 @@ class SongRepository extends ServiceEntityRepository
         }
     }
 
+    public function getByPlaylist(Playlist $playlist){
+        return $this->createQueryBuilder('s')
+            ->join('s.playlists', 'p')
+            ->where('p = :playlist')
+            ->setParameter('playlist', $playlist)
+            ->getQuery()
+            ->getResult()
+            ;
+    }
     // /**
     //  * @return Song[] Returns an array of Song objects
     //  */
